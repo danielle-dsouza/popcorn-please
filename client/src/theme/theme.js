@@ -15,6 +15,6 @@ export default {
     media: {
         mobile: 'only screen and (max-width: 414px)',
         tablet: 'only screen and (min-width: 415px) and (max-width: 834px)',
-        desktop: 'only screen and (min-width: 835px) and (max-width: 1480px)',
+        desktop: 'only screen and (min-width: 835px)',
     }
 }
