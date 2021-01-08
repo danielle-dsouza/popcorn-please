@@ -6,8 +6,10 @@ import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import ResultCard from "./components/ResultCard";
 import NomCard from "./components/NomCard";
+import Instructions from "./components/Instructions";
 
 import Heading from "./components/Texts/Heading";
+import Text from "./components/Texts/Text";
 
 import { connect } from "react-redux";
 
@@ -34,7 +36,7 @@ class App extends React.Component {
     console.log(isDisabled);
 
     const nomList = noms.map((nom) => {
-      return <NomCard key={nom.title} title={nom.title} year={nom.year} />;
+      return <NomCard key={nom.title} title={nom.title} year={nom.year} poster={nom.poster} />;
     });
 
     return (
@@ -50,15 +52,16 @@ class App extends React.Component {
                   title={result.title}
                   year={result.year}
                   plot={result.plot}
+                  poster={result.poster}
                   disabled={isDisabled} />
               ) : (
-                <div>TODO</div>
+                <Instructions />
               )}
             </ResultsDiv>
             <NomsDiv>
               <Hr />
               <Heading>Your Picks</Heading>
-              { nomList }
+              { nomLength > 0 ? nomList : <Text>Lookin' a little empty here!</Text> }
             </NomsDiv>
           </Container>
         </Layout>

@@ -9,14 +9,15 @@ class ResultCard extends React.Component {
   handleClick = () => {
     this.props.dispatch({
       type: ADD_NOM,
-      payload: { title: this.props.title, year: this.props.year },
+      payload: { title: this.props.title, year: this.props.year, poster: this.props.poster },
     });
   };
 
   render() {
     return (
       <CardWrapper>
-        <ImgWrapper>IMG</ImgWrapper>
+        {/* <ImgWrapper>{this.props.poster}</ImgWrapper> */}
+        <ImgWrapper><img src={this.props.poster} /></ImgWrapper>
         <InfoDiv>
           <Text bold style={{ textTransform: "uppercase" }}>
             {this.props.title}
@@ -48,15 +49,36 @@ const CardWrapper = styled.div`
 `;
 
 const ImgWrapper = styled.div`
+  ${({ theme }) => `
   float: left;
-  width: 150px;
-  background-color: green;
   margin-right: 4%;
+  height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  img {
+    width: 150px;
+  }
+
+  @media ${theme.media["tablet"]} {
+    img {
+      width: 150px;
+    }
+  }
+
+  @media ${theme.media["desktop"]} {
+    img {
+      width: 125px;
+    }
+  }
+  `}
 `;
 
 const InfoDiv = styled.div`
   float: right;
   width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
 `;
 
 export default connect()(ResultCard);

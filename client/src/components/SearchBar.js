@@ -38,6 +38,7 @@ class SearchBar extends React.Component {
             title: data["Title"],
             year: data["Year"],
             plot: data["Plot"],
+            poster: data["Poster"]
           },
         });
         this.props.dispatch({ type: SEARCH_SUCCESS, payload: this.state.result });

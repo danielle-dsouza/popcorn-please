@@ -3,7 +3,8 @@ import { SEARCH_SUCCESS, SEARCH_ERR } from "../actions/actionsTypes";
 const initState = {
     title: "",
     year: "",
-    plot: ""
+    plot: "",
+    poster: ""
 }
 
 const searchReducer = (state = initState, action) => {
@@ -16,7 +17,8 @@ const searchReducer = (state = initState, action) => {
                 ...state,
                 title: payload.title,
                 year: payload.year,
-                plot: payload.plot
+                plot: payload.plot,
+                poster: payload.poster
             };
 
         case SEARCH_ERR:
