@@ -23,7 +23,7 @@ class ResultCard extends React.Component {
           </Text>
           <Text>{this.props.year}</Text>
           <Text>{this.props.plot}</Text>
-          <Button onClick={this.handleClick}>Nominate</Button>
+          <Button disabled={this.props.disabled} onClick={this.handleClick}>Nominate</Button>
         </InfoDiv>
       </CardWrapper>
     );

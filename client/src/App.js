@@ -14,7 +14,26 @@ import { connect } from "react-redux";
 class App extends React.Component {
   render() {
     const result = this.props.search;
-    const nomList = this.props.nominations.map((nom) => {
+    const noms = this.props.nominations;
+    const nomLength = noms.length;
+    let isDisabled;
+    let titles = [];
+    noms.map((nom) => {
+      console.log(nom.title);
+      titles = [...titles, nom.title]
+    });
+
+    if (nomLength === 5 || nomLength > 5) {
+      isDisabled = true;
+    } else if (titles.includes(result.title)) {
+      isDisabled = true;
+    } else {
+      isDisabled = false;
+    }
+
+    console.log(isDisabled);
+
+    const nomList = noms.map((nom) => {
       return <NomCard key={nom.title} title={nom.title} year={nom.year} />;
     });
 
@@ -31,7 +50,7 @@ class App extends React.Component {
                   title={result.title}
                   year={result.year}
                   plot={result.plot}
-                />
+                  disabled={isDisabled} />
               ) : (
                 <div>TODO</div>
               )}
