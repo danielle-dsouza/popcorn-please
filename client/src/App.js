@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 
 import Navbar from "./components/Navbar";
@@ -8,28 +9,45 @@ import NomCard from "./components/NomCard";
 
 import Heading from "./components/Texts/Heading";
 
-const App = () => {
-  return (
-    <Background>
-      <Layout>
-        <Navbar />
-        <SearchBar />
-        <Container>
-          <ResultsDiv>
-            <Heading>Search Results</Heading>
-            <ResultCard />
-          </ResultsDiv>
-          <NomsDiv>
-            <Hr />
-            <Heading>Your Picks</Heading>
-            <NomCard />
-          </NomsDiv>
-        </Container>
-      </Layout>
-      <Footer />
-    </Background>
-  );
-};
+import { connect } from "react-redux";
+
+class App extends React.Component {
+  render() {
+    const result = this.props.search;
+    const nomList = this.props.nominations.map((nom) => {
+      return <NomCard key={nom.title} title={nom.title} year={nom.year} />;
+    });
+
+    return (
+      <Background>
+        <Layout>
+          <Navbar />
+          <SearchBar />
+          <Container>
+            <ResultsDiv>
+              <Heading>Search Results</Heading>
+              {result.title !== "" ? (
+                <ResultCard
+                  title={result.title}
+                  year={result.year}
+                  plot={result.plot}
+                />
+              ) : (
+                <div>TODO</div>
+              )}
+            </ResultsDiv>
+            <NomsDiv>
+              <Hr />
+              <Heading>Your Picks</Heading>
+              { nomList }
+            </NomsDiv>
+          </Container>
+        </Layout>
+        <Footer />
+      </Background>
+    );
+  }
+}
 
 const Background = styled.div`
   ${({ theme }) => `
@@ -106,9 +124,16 @@ const NomsDiv = styled.div`
 `;
 
 const Hr = styled.hr`
-    ${({theme}) => `
+  ${({ theme }) => `
       border-bottom: 5px solid ${theme.color.accent};
     `}
 `;
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    search: state.search,
+    nominations: state.nominations,
+  };
+};
+
+export default connect(mapStateToProps)(App);

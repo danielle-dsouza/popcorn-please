@@ -1,25 +1,34 @@
+import React from "react";
 import styled from "styled-components";
 import Text from "./Texts/Text";
 import Button from "./Button";
+import { ADD_NOM, NOM_ERR } from "../store/actions/actionsTypes";
+import { connect } from "react-redux";
 
-const ResultCard = () => {
-  return (
-    <CardWrapper>
-      <ImgWrapper>IMG</ImgWrapper>
-      <InfoDiv>
-        <Text bold style={{ "textTransform": "uppercase" }}>
-          Title
-        </Text>
-        <Text>Year</Text>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in
-          dui et dui iaculis accumsan lacinia pulvinar eros. Orci varius.
-        </Text>
-        <Button>Nominate</Button>
-      </InfoDiv>
-    </CardWrapper>
-  );
-};
+class ResultCard extends React.Component {
+  handleClick = () => {
+    this.props.dispatch({
+      type: ADD_NOM,
+      payload: { title: this.props.title, year: this.props.year },
+    });
+  };
+
+  render() {
+    return (
+      <CardWrapper>
+        <ImgWrapper>IMG</ImgWrapper>
+        <InfoDiv>
+          <Text bold style={{ textTransform: "uppercase" }}>
+            {this.props.title}
+          </Text>
+          <Text>{this.props.year}</Text>
+          <Text>{this.props.plot}</Text>
+          <Button onClick={this.handleClick}>Nominate</Button>
+        </InfoDiv>
+      </CardWrapper>
+    );
+  }
+}
 
 const CardWrapper = styled.div`
   ${({ theme }) => `
@@ -46,8 +55,8 @@ const ImgWrapper = styled.div`
 `;
 
 const InfoDiv = styled.div`
-    float: right;
-    width: 100%;
+  float: right;
+  width: 100%;
 `;
 
-export default ResultCard;
+export default connect()(ResultCard);

@@ -1,15 +1,80 @@
+import React from "react";
 import styled from "styled-components";
+import axios from "axios";
+import { SEARCH_SUCCESS, SEARCH_ERR } from "../store/actions/actionsTypes";
+import { connect } from "react-redux";
+import Button from "./Button";
 
-const SearchBar = () => {
-  return (
-    <SearchWrapper>
-      <SearchBox placeholder="Search" />
-    </SearchWrapper>
-  );
-};
+class SearchBar extends React.Component {
+  state = {
+    query: "",
+    result: {},
+  };
 
-const SearchWrapper = styled.div`
-    ${({theme}) => `
+  handleChange = (e) => {
+    e.preventDefault();
+    this.setState({
+      query: e.target.value,
+    });
+  };
+
+  handleSearch = (e) => {
+    e.preventDefault();
+    this.handleSubmit(this.state.query);
+    this.setState({
+      query: "",
+    });
+  };
+
+  handleSubmit = (search) => {
+    try {
+      // API Call
+      axios.get(`/search/${search}`).then(async (res) => {
+        const data = await res.data;
+
+        // Add to state
+        this.setState({
+          result: {
+            title: data["Title"],
+            year: data["Year"],
+            plot: data["Plot"],
+          },
+        });
+        this.props.dispatch({ type: SEARCH_SUCCESS, payload: this.state.result });
+      });
+    } catch (err) {
+      console.log(err);
+      this.props.dispatch({ type: SEARCH_ERR });
+    }
+  };
+
+  render() {
+    return (
+      <SearchWrapper>
+        <SearchBox
+          placeholder="Search"
+          value={this.state.query}
+          onChange={this.handleChange}
+        />
+        <Button
+          type="submit"
+          onClick={this.handleSearch}
+          style={{
+            visibility: "hidden",
+            width: "0px",
+            padding: "0",
+            border: "none",
+          }}
+        >
+          Search
+        </Button>
+      </SearchWrapper>
+    );
+  }
+}
+
+const SearchWrapper = styled.form`
+  ${({ theme }) => `
     margin: 0 2%;
     display: flex;
     align-items: center;
@@ -25,7 +90,7 @@ const SearchWrapper = styled.div`
 `;
 
 const SearchBox = styled.input`
-    ${({ theme }) => `
+  ${({ theme }) => `
     width: 90%;
     background-color: ${theme.color.background};
     border: 3px solid ${theme.color.primary};
@@ -50,4 +115,4 @@ const SearchBox = styled.input`
     `}
 `;
 
-export default SearchBar;
+export default connect()(SearchBar);
