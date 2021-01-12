@@ -18,6 +18,8 @@ import { connect } from "react-redux";
 import Modal from "./components/Modal/Modal";
 import Detail from "./components/Detail";
 
+import Banner from "./components/Banner";
+
 class App extends React.Component {
   state = {
     show: false,
@@ -25,7 +27,7 @@ class App extends React.Component {
 
   render() {
     const result = this.props.search;
-    const { title, poster, ...details } = result;
+    // const { title, poster, ...details } = result;
     const noms = this.props.nominations;
     const nomLength = noms.length;
     let isDisabled;
@@ -70,8 +72,9 @@ class App extends React.Component {
 
     return (
       <Background>
+        { nomLength === 5 ? <Banner showBanner={this.state.showBanner} /> : null}
         <Modal showModal={this.state.show} closeModal={handleCloseModal}>
-          <Detail title={title} movie={result} />
+          <Detail movie={result} />
         </Modal>
         <Layout lgImg={lgImg} smImg={smImg}>
           <Navbar />
@@ -89,7 +92,6 @@ class App extends React.Component {
                     disabled={isDisabled}
                     clicked={handleShow}
                   />
-                  {/* <Button>Learn More</Button> */}
                 </div>
               ) : (
                 <Instructions />
@@ -112,14 +114,8 @@ class App extends React.Component {
   }
 }
 
-// background-color: ${theme.color.background};
-// min-height: 100vh;
-
 const Background = styled.div`
-  ${({ theme, lgImg }) => `
   min-height: 100vh;
-
-  `}
 `;
 
 const Layout = styled.div`
