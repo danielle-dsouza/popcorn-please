@@ -71,7 +71,7 @@ class App extends React.Component {
     return (
       <Background>
         <Modal showModal={this.state.show} closeModal={handleCloseModal}>
-          <Detail title={title} movie={details} />
+          <Detail title={title} movie={result} />
         </Modal>
         <Layout lgImg={lgImg} smImg={smImg}>
           <Navbar />

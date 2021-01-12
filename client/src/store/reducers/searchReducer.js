@@ -31,7 +31,7 @@ const searchReducer = (state = initState, action) => {
                 rated: payload.rated,
                 released: payload.released,
                 genre: payload.genre,
-                director: payload.genre,
+                director: payload.director,
                 writer: payload.writer,
                 actors: payload.actors,
                 awards: payload.awards,
