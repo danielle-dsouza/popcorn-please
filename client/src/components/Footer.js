@@ -27,11 +27,17 @@ const Footer = () => {
           <SLink target="_blank" href="https://www.google.ca/">
             <Text color="accent">Git Repo</Text>
           </SLink>
-          <SLink target="_blank" href="https://www.google.ca/">
+          {/* <SLink target="_blank" href="https://www.google.ca/">
             <Text color="background">
-              Meet <span>Danielle</span>
+              Made with :heart: by <span>Danielle</span>
             </Text>
-          </SLink>
+          </SLink> */}
+          <hr />
+          <Text color="background">
+            Hey! I'm <span style={{fontWeight: 'bold'}}>Danielle</span> and I love code. Lots of it! If
+            you're interested in my <SLink style={{color: '#FFD369'}} target="_blank" href="https://github.com/danielle-dsouza">work</SLink>, let's{" "}
+            <SLink style={{color: '#FFD369'}} target="_blank" href="https://www.linkedin.com/in/daniellejdsouza/">get it touch!</SLink>
+          </Text>
         </LinkDiv>
       </Wrapper>
     </FooterWrapper>
@@ -72,7 +78,7 @@ const Wrapper = styled.div`
 `;
 
 const AboutDiv = styled.div`
-    ${({theme}) => `
+  ${({ theme }) => `
     @media ${theme.media["tablet"]} {
         width: 65%;
     }
@@ -84,7 +90,7 @@ const AboutDiv = styled.div`
 `;
 
 const LinkDiv = styled.div`
-    ${({theme}) => `
+  ${({ theme }) => `
 
 
     @media ${theme.media["mobile"]} {
@@ -100,7 +106,6 @@ const LinkDiv = styled.div`
     }
     `}
 `;
-
 
 const SLink = styled.a`
   text-decoration: none;

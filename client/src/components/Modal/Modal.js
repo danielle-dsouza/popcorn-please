@@ -24,9 +24,9 @@ const SModal = styled.div`
         width: 70%;
         border: 1px solid #ccc;
         box-shadow: 1px 1px 1px black;
-        padding: 16px;
+        padding: 3%;
         left: 15%;
-        top 30%;
+        top 10%;
         box-sizing: border-box;
         transition: all 0.5s ease-out;
 

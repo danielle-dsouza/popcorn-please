@@ -16,7 +16,6 @@ class ResultCard extends React.Component {
   render() {
     return (
       <CardWrapper>
-        {/* <ImgWrapper>{this.props.poster}</ImgWrapper> */}
         <ImgWrapper><img alt="Movie Poster" src={this.props.poster} /></ImgWrapper>
         <InfoDiv>
           <Text bold style={{ textTransform: "uppercase" }}>
