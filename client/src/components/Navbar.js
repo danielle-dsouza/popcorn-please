@@ -14,7 +14,6 @@ const Navbar = () => {
 
 const NavWrapper = styled.div`
   ${({ theme }) => `
-    background-color: ${theme.color.background};
     padding-bottom: 8%;
 
     @media ${theme.media["tablet"]} {
