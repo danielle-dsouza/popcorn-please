@@ -10,19 +10,31 @@ import Instructions from "./components/Instructions";
 
 import Heading from "./components/Texts/Heading";
 import Text from "./components/Texts/Text";
+import lgImg from "./assets/bg-desktop.svg";
+import smImg from "./assets/bg-tablet.svg";
 
 import { connect } from "react-redux";
 
+import Modal from "./components/Modal/Modal";
+import Detail from "./components/Detail";
+
 class App extends React.Component {
+  state = {
+    show: false,
+  };
+
   render() {
     const result = this.props.search;
+    const { title, poster, ...details } = result;
     const noms = this.props.nominations;
     const nomLength = noms.length;
     let isDisabled;
     let titles = [];
+
     noms.map((nom) => {
       console.log(nom.title);
-      titles = [...titles, nom.title]
+      titles = [...titles, nom.title];
+      return null;
     });
 
     if (nomLength === 5 || nomLength > 5) {
@@ -33,27 +45,52 @@ class App extends React.Component {
       isDisabled = false;
     }
 
-    console.log(isDisabled);
-
     const nomList = noms.map((nom) => {
-      return <NomCard key={nom.title} title={nom.title} year={nom.year} poster={nom.poster} />;
+      return (
+        <NomCard
+          key={nom.title}
+          title={nom.title}
+          year={nom.year}
+          poster={nom.poster}
+        />
+      );
     });
+
+    const handleShow = () => {
+      this.setState({
+        show: true,
+      });
+    };
+
+    const handleCloseModal = () => {
+      this.setState({
+        show: false,
+      });
+    };
 
     return (
       <Background>
-        <Layout>
+        <Modal showModal={this.state.show} closeModal={handleCloseModal}>
+          <Detail title={title} movie={details} />
+        </Modal>
+        <Layout lgImg={lgImg} smImg={smImg}>
           <Navbar />
           <SearchBar />
           <Container>
             <ResultsDiv>
               <Heading>Search Results</Heading>
               {result.title !== "" ? (
-                <ResultCard
-                  title={result.title}
-                  year={result.year}
-                  plot={result.plot}
-                  poster={result.poster}
-                  disabled={isDisabled} />
+                <div>
+                  <ResultCard
+                    title={result.title}
+                    year={result.year}
+                    plot={result.plot}
+                    poster={result.poster}
+                    disabled={isDisabled}
+                    clicked={handleShow}
+                  />
+                  {/* <Button>Learn More</Button> */}
+                </div>
               ) : (
                 <Instructions />
               )}
@@ -61,7 +98,11 @@ class App extends React.Component {
             <NomsDiv>
               <Hr />
               <Heading>Your Picks</Heading>
-              { nomLength > 0 ? nomList : <Text>Lookin' a little empty here!</Text> }
+              {nomLength > 0 ? (
+                nomList
+              ) : (
+                <Text>Lookin' a little empty here!</Text>
+              )}
             </NomsDiv>
           </Container>
         </Layout>
@@ -71,19 +112,27 @@ class App extends React.Component {
   }
 }
 
+// background-color: ${theme.color.background};
+// min-height: 100vh;
+
 const Background = styled.div`
-  ${({ theme }) => `
-  background-color: ${theme.color.background};
+  ${({ theme, lgImg }) => `
   min-height: 100vh;
+
   `}
 `;
 
 const Layout = styled.div`
-  ${({ theme }) => `
+  ${({ theme, lgImg, smImg }) => `
     padding: 7% 5%;
+    background-image: url(${lgImg});
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 
     @media ${theme.media["tablet"]} {
       padding: 8% 10%;
+      background-image: url(${smImg});
     }
 
     @media ${theme.media["desktop"]} {

@@ -17,7 +17,7 @@ class ResultCard extends React.Component {
     return (
       <CardWrapper>
         {/* <ImgWrapper>{this.props.poster}</ImgWrapper> */}
-        <ImgWrapper><img src={this.props.poster} /></ImgWrapper>
+        <ImgWrapper><img alt="Movie Poster" src={this.props.poster} /></ImgWrapper>
         <InfoDiv>
           <Text bold style={{ textTransform: "uppercase" }}>
             {this.props.title}
@@ -25,6 +25,7 @@ class ResultCard extends React.Component {
           <Text>{this.props.year}</Text>
           <Text>{this.props.plot}</Text>
           <Button disabled={this.props.disabled} onClick={this.handleClick}>Nominate</Button>
+          <Button onClick={this.props.clicked}>Learn More</Button>
         </InfoDiv>
       </CardWrapper>
     );

@@ -38,10 +38,48 @@ class SearchBar extends React.Component {
             title: data["Title"],
             year: data["Year"],
             plot: data["Plot"],
-            poster: data["Poster"]
+            poster: data["Poster"],
+            rated: data["Rated"],
+            released: data["Released"],
+            genre: data["Genre"],
+            director: data["Director"],
+            writer: data["Writer"],
+            actors: data["Actors"],
+            awards: data["Awards"],
+            rating: data["imdbRating"],
+            boxOffice: data["BoxOffice"]
           },
         });
-        this.props.dispatch({ type: SEARCH_SUCCESS, payload: this.state.result });
+        this.props.dispatch({
+          type: SEARCH_SUCCESS,
+          payload: this.state.result,
+        });
+      });
+    } catch (err) {
+      console.log(err);
+      this.props.dispatch({ type: SEARCH_ERR });
+    }
+  };
+
+  handleMore = (search) => {
+    try {
+      // API Call
+      axios.get(`/search/${search}`).then(async (res) => {
+        const data = await res.data;
+
+        // Add to state
+        this.setState({
+          result: {
+            title: data["Title"],
+            year: data["Year"],
+            plot: data["Plot"],
+            poster: data["Poster"],
+          },
+        });
+        this.props.dispatch({
+          type: SEARCH_SUCCESS,
+          payload: this.state.result,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -93,7 +131,6 @@ const SearchWrapper = styled.form`
 const SearchBox = styled.input`
   ${({ theme }) => `
     width: 90%;
-    background-color: ${theme.color.background};
     border: 3px solid ${theme.color.primary};
     font-family: ${theme.font.default};
     font-size: 1.5rem;

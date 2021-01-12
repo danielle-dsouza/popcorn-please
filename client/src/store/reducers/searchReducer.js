@@ -4,7 +4,16 @@ const initState = {
     title: "",
     year: "",
     plot: "",
-    poster: ""
+    poster: "",
+    rated: "",
+    released: "",
+    genre: "",
+    director: "",
+    writer: "",
+    actors: "",
+    awards: "",
+    // rating: "",
+    boxOffice: ""
 }
 
 const searchReducer = (state = initState, action) => {
@@ -18,7 +27,16 @@ const searchReducer = (state = initState, action) => {
                 title: payload.title,
                 year: payload.year,
                 plot: payload.plot,
-                poster: payload.poster
+                poster: payload.poster,
+                rated: payload.rated,
+                released: payload.released,
+                genre: payload.genre,
+                director: payload.genre,
+                writer: payload.writer,
+                actors: payload.actors,
+                awards: payload.awards,
+                rating: payload.rating,
+                boxOffice: payload.boxOffice
             };
 
         case SEARCH_ERR:
