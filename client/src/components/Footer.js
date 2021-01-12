@@ -24,14 +24,9 @@ const Footer = () => {
           <Text color="background" bold>
             LEARN MORE
           </Text>
-          <SLink target="_blank" href="https://www.google.ca/">
+          <SLink target="_blank" href="https://github.com/danielle-dsouza/popcorn-please">
             <Text color="accent">Git Repo</Text>
           </SLink>
-          {/* <SLink target="_blank" href="https://www.google.ca/">
-            <Text color="background">
-              Made with :heart: by <span>Danielle</span>
-            </Text>
-          </SLink> */}
           <hr />
           <Text color="background">
             Hey! I'm <span style={{fontWeight: 'bold'}}>Danielle</span> and I love code. Lots of it! If
