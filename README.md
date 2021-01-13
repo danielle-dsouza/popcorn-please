@@ -4,6 +4,8 @@
 
 Popcorn Please is a fun web application that gives you the power of top-notch movie critic! Search and learn about movies of all kinds, and select your top 5 to be nominated for awards!
 
+Become a true Oscar Judge [today](https://popcornplease.herokuapp.com/ "Popcorn Please Link")!
+
 ## Architecture
 Popcorn Please is built with a mobile-first approach using ReactJS, Redux, and NodeJS. It utilizes the [OMDb API](http://www.omdbapi.com/ "OMDb API").
 
