@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import SearchBar from "./components/SearchBar";
+// import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/Typeahead";
 import ResultCard from "./components/ResultCard";
 import NomCard from "./components/NomCard";
 import Instructions from "./components/Instructions";
@@ -27,7 +28,6 @@ class App extends React.Component {
 
   render() {
     const result = this.props.search;
-    // const { title, poster, ...details } = result;
     const noms = this.props.nominations;
     const nomLength = noms.length;
     let isDisabled;

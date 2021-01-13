@@ -4,7 +4,6 @@ import Heading from "./Texts/Heading";
 import Text from "./Texts/Text";
 
 const Detail = (props) => {
-  console.log(props.movie);
   const {
     title,
     year,
