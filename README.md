@@ -14,6 +14,6 @@ Popcorn Please is built with a mobile-first approach using ReactJS, Redux, and N
 
 ![Functional Search Bar](https://github.com/danielle-dsouza/popcorn-please/blob/media/popcorn-please-search.JPG "Functional Search Bar")
 
-![Typeahead](https://github.com/danielle-dsouza/popcorn-please/blob/media/popcorn-please-modal.JPG "Typeahead")
+![Typeahead](https://github.com/danielle-dsouza/popcorn-please/blob/media/popcorn-please-typeahead.JPG "Typeahead")
 
 ![Animated Modal](https://github.com/danielle-dsouza/popcorn-please/blob/media/popcorn-please-modal.JPG "Animated Modal")
