@@ -1,12 +1,18 @@
 import express from "express";
 import fetch from "node-fetch";
-import { API_KEY } from "./temp.js";
-// import dotenv from 'dotenv';
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const base_url = `http://www.omdbapi.com/?t=`;
-const api_key = `apikey=${API_KEY}`;
+const api_key = `apikey=${process.env.API_KEY}`;
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.join(__dirname, "build/")));
 
 app.get("/search/:query", async (request, response) => {
   const queryParams = request.params.query;
