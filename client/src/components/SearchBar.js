@@ -7,13 +7,39 @@ import Button from "./Button";
 
 class SearchBar extends React.Component {
   state = {
+    active: 0,
+    filtered: [],
+    show: false,
     query: "",
     result: {},
+    titles: [],
   };
 
+  componentDidMount() {
+    fetch("/data")
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({
+          titles: json,
+        });
+      });
+  }
+
   handleChange = (e) => {
-    e.preventDefault();
+    const suggestions = this.state.titles;
+    const search = e.target.value;
+
+    const filtered = suggestions
+      .filter(
+        (suggestion) =>
+          suggestion.toLowerCase().indexOf(search.toLowerCase()) > -1
+      )
+      .slice(0, 10);
+
     this.setState({
+      active: 0,
+      filtered,
+      show: true,
       query: e.target.value,
     });
   };
@@ -47,7 +73,7 @@ class SearchBar extends React.Component {
             actors: data["Actors"],
             awards: data["Awards"],
             rating: data["imdbRating"],
-            boxOffice: data["BoxOffice"]
+            boxOffice: data["BoxOffice"],
           },
         });
         this.props.dispatch({
@@ -87,27 +113,108 @@ class SearchBar extends React.Component {
     }
   };
 
+  handleClick = (e) => {
+    this.handleSubmit(e.target.innerText);
+    this.setState({
+      active: 0,
+      filtered: [],
+      show: false,
+      query: "",
+    });
+  };
+
+  handleKeyDown = (e) => {
+    const { active, filtered } = this.state;
+
+    // Enter key
+    if (e.keyCode === 13) {
+      this.setState({
+        active: 0,
+        show: false,
+        query: e.target.value,
+      });
+    }
+    // Up arrow
+    else if (e.keyCode === 38) {
+      if (active === 0) {
+        return;
+      }
+
+      this.setState({ active: active - 1 });
+    }
+    // Down Arrow
+    else if (e.keyCode === 40) {
+      if (active - 1 === filtered.length) {
+        return;
+      }
+
+      this.setState({ active: active + 1 });
+    }
+  };
+
   render() {
+    const {
+      handleChange,
+      handleClick,
+      handleKeyDown,
+      state: { active, filtered, show, query },
+    } = this;
+
+    let suggestionsListComponent;
+
+    if (show && query) {
+      if (filtered.length) {
+        suggestionsListComponent = (
+          <div>
+            {filtered.map((suggestion, index) => {
+              let className;
+
+              if (index === active) {
+                className = "suggestion-active";
+              }
+
+              return (
+                <p className={className} key={index} onClick={handleClick}>
+                  {suggestion}
+                </p>
+              );
+            })}
+          </div>
+        );
+      } else {
+        suggestionsListComponent = (
+          <div class="no-suggestions">
+            <em>No suggestions, you're on your own!</em>
+          </div>
+        );
+      }
+    }
+
     return (
-      <SearchWrapper>
-        <SearchBox
-          placeholder="Search"
-          value={this.state.query}
-          onChange={this.handleChange}
-        />
-        <Button
-          type="submit"
-          onClick={this.handleSearch}
-          style={{
-            visibility: "hidden",
-            width: "0px",
-            padding: "0",
-            border: "none",
-          }}
-        >
-          Search
-        </Button>
-      </SearchWrapper>
+      <div>
+        <SearchWrapper>
+          <SearchBox
+            placeholder="Search"
+            type="text"
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            value={query}
+          />
+          <Button
+            type="submit"
+            onClick={this.handleSearch}
+            style={{
+              visibility: "hidden",
+              width: "0px",
+              padding: "0",
+              border: "none",
+            }}
+          >
+            Search
+          </Button>
+        </SearchWrapper>
+        <SuggestionDiv>{suggestionsListComponent}</SuggestionDiv>
+      </div>
     );
   }
 }
@@ -149,6 +256,23 @@ const SearchBox = styled.input`
         width: 100%;
         height: 30px;
         font-size: 1/3rem;
+    }
+    `}
+`;
+
+const SuggestionDiv = styled.div`
+  ${({ theme }) => `
+    position: absolute;
+    background-color: white;
+    p {
+        font-family: ${theme.font.default};
+        margin: 0;
+        padding: 1% 3%;
+        
+        &:hover {
+            font-weight: bold;
+            cursor: pointer;
+        }
     }
     `}
 `;

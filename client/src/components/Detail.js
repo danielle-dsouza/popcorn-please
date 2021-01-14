@@ -71,15 +71,15 @@ const Detail = (props) => {
 
       { genre != "" ? <Text font="header" size="1.7rem" style={{ marginTop: "2%" }}>Do you love {genre}...</Text> : null }
 
-      <Text size="1.2rem">{plot}</Text>
+      <Text>{plot}</Text>
 
-      <Text font="header" size="2rem" style={{ marginTop: "2%" }}>
-        Meet the <StyledSpan>Stars</StyledSpan> !
+      <Text font="header" size="1.7rem" style={{ marginTop: "2%" }}>
+        Meet the Stars !
       </Text>
       <div>{movieStars}</div>
 
-      <Text font="header" size="2rem" style={{ marginTop: "2%" }}>
-        How Did <StyledSpan>{props.movie.title}</StyledSpan> Stack Up?
+      <Text font="header" size="1.7rem" style={{ marginTop: "2%" }}>
+        How Did {props.movie.title} Stack Up?
       </Text>
       <div>{movieStats}</div>
     </div>

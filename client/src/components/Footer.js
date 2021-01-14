@@ -16,7 +16,7 @@ const Footer = () => {
           </Text>
           <Text color="background">
             <i>
-              Did we mention we <span>love movies</span>?
+              Did we mention we <strong>love movies</strong>?
             </i>
           </Text>
         </AboutDiv>
@@ -29,7 +29,7 @@ const Footer = () => {
           </SLink>
           <hr />
           <Text color="background">
-            Hey! I'm <span style={{fontWeight: 'bold'}}>Danielle</span> and I love code. Lots of it! If
+            Hey! I'm <strong>Danielle</strong> and I love code. Lots of it! If
             you're interested in my <SLink style={{color: '#FFD369'}} target="_blank" href="https://github.com/danielle-dsouza">work</SLink>, let's{" "}
             <SLink style={{color: '#FFD369'}} target="_blank" href="https://www.linkedin.com/in/daniellejdsouza/">get it touch!</SLink>
           </Text>

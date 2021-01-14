@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-// import SearchBar from "./components/SearchBar";
-import SearchBar from "./components/Typeahead";
+import SearchBar from "./components/Searchbar";
 import ResultCard from "./components/ResultCard";
 import NomCard from "./components/NomCard";
 import Instructions from "./components/Instructions";
